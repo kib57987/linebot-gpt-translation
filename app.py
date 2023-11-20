@@ -9,7 +9,18 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
-
+def gpt_translation(input_indonesian):
+    client = OpenAI(api_key='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')
+    message=[
+                {"role": "user", "content": "please translate " + input_indonesian + " to Tranditional Chinese"}
+     ]
+    response = client.chat.completions.create(
+        model="gpt-4-1106-preview",
+        messages=message,
+        max_tokens=200
+    )
+    return response.choices[0].message.content
+     
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -23,8 +34,9 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    user_id = event.source.user_id
     message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
+    line_bot_api.reply_message(user_id + ":" + event.reply_token, message)
 
 import os
 if __name__ == "__main__":
