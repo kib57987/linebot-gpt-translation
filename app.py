@@ -11,7 +11,7 @@ line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
 def gpt_translation(to_language, input_string):
-    client = OpenAI(api_key='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')
+    client = OpenAI(api_key='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')
     message=[
                 {"role": "user", "content": "please translate " + input_string + " to " + to_language + ".  just show me " + to_language + "."}
      ]
