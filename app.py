@@ -63,9 +63,9 @@ def callback():
 def handle_message(event):
     user_id = event.source.user_id
     if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
-        message = TextSendMessage(text = user_id + ": " + gpt_translation("Chinese", event.message.text))
+        message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
     else:
-        message = TextSendMessage(text = user_id + ": " + gpt_translation("Indonesian", event.message.text))
+        message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
         
     line_bot_api.reply_message(event.reply_token, message)
 
