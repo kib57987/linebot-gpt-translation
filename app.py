@@ -13,7 +13,7 @@ handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 def gpt_translation(input_indonesian):
     client = OpenAI(api_key='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')
     message=[
-                {"role": "user", "content": "please translate " + input_indonesian + " to Tranditional Chinese"}
+                {"role": "user", "content": "please translate " + input_indonesian + " to Tranditional Chinese.  just show me Chinese."}
      ]
     response = client.chat.completions.create(
         model="gpt-4-1106-preview",
