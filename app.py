@@ -35,7 +35,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = event.source.user_id
-    message = TextSendMessage(text = user_id + ": " + event.message.text)
+    message = TextSendMessage(text = user_id + ": " + gpt_translation(event.message.text))
     line_bot_api.reply_message(event.reply_token, message)
 
 import os
