@@ -12,12 +12,14 @@ line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 
 def gpt_translation(to_language, input_string):
-    openai.api_key = os.getenv('OPENAI_API_KEY')    
+     
+    client = OpenAI()
+
     message=[
                 {"role": "user", "content": "please translate " + input_string + " to " + to_language + ".  just show me " + to_language + "."}
      ]
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=message,
             max_tokens=200)
