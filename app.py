@@ -62,7 +62,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = event.source.user_id
-    if user_id == 'SPECIAL_USER_ID':
+    if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
         message = TextSendMessage(text = user_id + ": " + gpt_translation("Chinese", event.message.text))
     else:
         message = TextSendMessage(text = user_id + ": " + gpt_translation("Indonesian", event.message.text))
