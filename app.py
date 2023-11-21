@@ -67,8 +67,7 @@ def handle_message(event):
         message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
     else:
         message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
-        
-    #line_bot_api.reply_message(event.reply_token, message)
+
      line_bot_api.reply_message(reply_quote_token, message)
 
 
