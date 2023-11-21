@@ -1,8 +1,7 @@
 import openai
 import uvicorn
-from flask import Flask, abort
+from flask import Flask, request, abort
 from openai import OpenAI
-from fastapi import FastAPI, Request
 from linebot import LineBotApi, WebhookHandler
 from linebot.v3.webhook import WebhookParser
 from linebot.exceptions import InvalidSignatureError
@@ -53,24 +52,18 @@ def gpt_translation(to_language, input_string):
     return return_message
      
 @app.route("/callback", methods=['POST'])
-def callback(request: Request):
-    #signature = request.headers['X-Line-Signature']
-    #body = request.get_data(as_text=True)
-    #app.logger.info("Request body: " + body)
+def callback():
     signature = request.headers['X-Line-Signature']
-    # get request body as text
-    body = request.body()
-    body = body.decode()
-
-
-     
+    body = request.data()
+    #app.logger.info("Request body: " + body)
+    print(str(body))
     try:
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         raise HTTPException(status_code=400, detail="Invalid signature")
     print(str(events))
     for event in events:
-        #print(event)
+        print(type(event))         
         user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
