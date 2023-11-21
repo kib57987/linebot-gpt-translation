@@ -92,7 +92,8 @@ def callback():
             to_id = event.source.group_id
         else:
             to_id = event.source.room_id
-            
+
+        user_id = event.source.user_id
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
             translated_text = gpt_translation("Chinese", event.message.text)
             to_message = TextMessage(text = translated_text, quoteToken=event.message.quote_token)
