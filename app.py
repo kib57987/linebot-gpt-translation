@@ -60,20 +60,21 @@ def callback():
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         raise HTTPException(status_code=400, detail="Invalid signature")
-    #print("events: " + str(events))     
-    
 
     for event in events:
         print(event)
         user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
             continue
+
         if not isinstance(event.message, TextMessageContent):
             continue
+
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
         else:             
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
+
         print("text: " + event.message.text)
         print("quote_token: " + event.message.quote_token)
         print("message: " + str(message)) 
