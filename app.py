@@ -67,7 +67,7 @@ def callback():
             continue
 
         if not isinstance(event.message, TextMessageContent):
-             print("not isinstance TextMessageContent")
+            print("not isinstance TextMessageContent")
             continue
 
         print("event type = " + type(event).__name__)      
