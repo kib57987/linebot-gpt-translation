@@ -57,7 +57,7 @@ def callback():
     #app.logger.info("Request body: " + body)
     signature = request.headers['X-Line-Signature']
     # get request body as text
-    body = await request.body()
+    body = request.body()
     body = body.decode()
 
 
