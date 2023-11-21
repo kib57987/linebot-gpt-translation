@@ -83,14 +83,16 @@ def callback():
 
         user_id = event.source.user_id
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
-            message = TextMessage(text = gpt_translation("Chinese", event.message.text), quoteToken=event.message.quote_token)
-        else:             
-            message = TextMessage(text = gpt_translation("Indonesian", event.message.text), quoteToken=event.message.quote_token)
+            translated_text = gpt_translation("Chinese", event.message.text)
+            to_message = TextMessage(text = translated_text, quoteToken=event.message.quote_token)
+        else:       
+            translated_text = gpt_translation("Indonesian", event.message.text)
+            to_message = TextMessage(text = translated_text, quoteToken=event.message.quote_token)
 
         #print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
-        print("message: " + str(message)) 
-        line_bot_api.push_message(event.source.user_id, message)
+        print("message: " + str(to_message)) 
+        line_bot_api.push_message(event.source.user_id, to_message)
          
         #line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
