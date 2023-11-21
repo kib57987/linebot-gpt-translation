@@ -55,14 +55,14 @@ def gpt_translation(to_language, input_string):
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.data
-    print(str(body))
+    print(repr(body))
     try:
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         raise HTTPException(status_code=400, detail="Invalid signature")
-    print(str(events))
+
     for event in events:
-        print(type(event))         
+        print("event type = " + type(event))         
         user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
