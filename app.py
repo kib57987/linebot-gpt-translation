@@ -64,7 +64,7 @@ def callback():
     for event in events:
         print(f"event: {event}")
         print(f"event type: {type(event)}")
-        print(isinstance(event, MessageEvent))
+        print(isinstance(event, linebot.v3.webhooks.models.message_event.MessageEvent))
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
             continue
