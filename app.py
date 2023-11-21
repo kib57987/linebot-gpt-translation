@@ -62,9 +62,10 @@ def callback():
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
-        print(event)
+        #print(event)
         user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
+            print("not isinstance(event, MessageEvent)")
             continue
 
         if not isinstance(event.message, TextMessageContent):
@@ -75,10 +76,10 @@ def callback():
         else:             
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
 
-        print("text: " + event.message.text)
-        print("quote_token: " + event.message.quote_token)
-        print("message: " + str(message)) 
-        line_bot_api.reply_message(event.message.quote_token, message)     
+        #print("text: " + event.message.text)
+        #print("quote_token: " + event.message.quote_token)
+        #print("message: " + str(message)) 
+        #line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
 """
 @handler.add(MessageEvent, message=TextMessage)
