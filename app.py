@@ -88,7 +88,7 @@ def callback():
             continue
         if event.source.type == 'user':
             to_id = event.source.user_id
-        else if event.source.type == 'group':  
+        elif event.source.type == 'group':  
             to_id = event.source.group_id
         else:
             to_id = event.source.room_id
