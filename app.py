@@ -65,7 +65,6 @@ def handle_message(event):
     #AttributeError: 'TextMessage' object has no attribute 'quoteToken'
     reply_quote_token = event.reply_token
     print("event" + str(event))
-    print(str(message))
     if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
         message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
     else:
