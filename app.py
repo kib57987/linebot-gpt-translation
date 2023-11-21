@@ -11,7 +11,9 @@ from linebot.v3.webhooks import (
 )
 from linebot.v3.messaging import (
     AsyncApiClient,
+    ApiClient,
     AsyncMessagingApi,
+    MessagingApi,
     Configuration,
     ReplyMessageRequest,
     PushMessageRequest,
@@ -21,7 +23,10 @@ import os
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
+configuration = Configuration(access_token=os.environ['CHANNEL_ACCESS_TOKEN'])
+async_api_client = ApiClient(configuration)
+line_bot_api = MessagingApi(async_api_client)
+#line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
 parser = WebhookParser(os.environ['CHANNEL_SECRET'])
 
@@ -95,7 +100,7 @@ def callback():
         push_message_request = PushMessageRequest(to=event.source.user_id, messages=[to_message])
         line_bot_api.push_message(push_message_request)
          
-        #line_bot_api.reply_message(event.message.quote_token, message)     
+        #.reply_message(event.message.quote_token, message)     
     return 'OK'
 """
 @handler.add(MessageEvent, message=TextMessage)
@@ -108,8 +113,8 @@ def handle_message(event):
         message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
     else:
         message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
-    line_bot_api.reply_message(reply_quote_token, message)
-            result = line_bot_api.push_message(push_message_request=PushMessageRequest(
+    .reply_message(reply_quote_token, message)
+            result = .push_message(push_message_request=PushMessageRequest(
             to=event.source.user_id,
             messages=[TextMessage(
                 text=message,
