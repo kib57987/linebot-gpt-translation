@@ -92,7 +92,7 @@ def callback():
         #print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
         print("message: " + str(to_message)) 
-        line_bot_api.push_message(event.source.user_id, to_message)
+        line_bot_api.push_message(event.source.user_id, [to_message])
          
         #line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
