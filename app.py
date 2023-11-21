@@ -76,6 +76,7 @@ def callback():
             print("text: " + event.message.text)
             print("quote_token: " + event.message.quote_token) 
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
+            print("message: " + str(message)) 
         line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
 """
