@@ -78,6 +78,7 @@ def callback():
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
+        print(str(event))
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
             continue
@@ -96,7 +97,7 @@ def callback():
 
         #print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
-        print("message: " + str(to_message)) 
+        #print("message: " + str(to_message)) 
         push_message_request = PushMessageRequest(to=event.source.user_id, messages=[to_message])
         line_bot_api.push_message(push_message_request)
          
