@@ -79,7 +79,7 @@ def callback():
             messages=[TextMessage(
                 text=message,
                 quoteToken=event.message.quote_token)],))
-         print(str(result))
+        print(str(result))
     return 'OK'
 """
 @handler.add(MessageEvent, message=TextMessage)
