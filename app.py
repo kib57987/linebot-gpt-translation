@@ -74,7 +74,7 @@ def callback():
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
         else:
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
-        await line_bot_api.push_message(push_message_request=PushMessageRequest(
+        line_bot_api.push_message(push_message_request=PushMessageRequest(
             to=event.source.user_id,
             messages=[TextMessage(
                 text=message,
