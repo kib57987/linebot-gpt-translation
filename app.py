@@ -62,7 +62,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = event.source.user_id
-    reply_quote_token = event.reply_token
+    #reply_quote_token = event.reply_token
     print("event.message.quoteToken = " + event.message.quoteToken)
 
     if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
