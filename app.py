@@ -2,6 +2,7 @@ import openai
 from openai import OpenAI
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
+from linebot.v3.webhook import WebhookParser
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
