@@ -86,8 +86,13 @@ def callback():
         if not isinstance(event.message, TextMessageContent):
             print("not isinstance TextMessageContent")
             continue
-
-        user_id = event.source.user_id
+        if event.source.type == 'user':
+            to_id = event.source.user_id
+        else if event.source.type == 'group':  
+            to_id = event.source.group_id
+        else:
+            to_id = event.source.room_id
+            
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
             translated_text = gpt_translation("Chinese", event.message.text)
             to_message = TextMessage(text = translated_text, quoteToken=event.message.quote_token)
@@ -98,7 +103,7 @@ def callback():
         #print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
         #print("message: " + str(to_message)) 
-        push_message_request = PushMessageRequest(to=event.source.user_id, messages=[to_message])
+        push_message_request = PushMessageRequest(to=to_id, messages=[to_message])
         line_bot_api.push_message(push_message_request)
          
         #.reply_message(event.message.quote_token, message)     
