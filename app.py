@@ -74,12 +74,7 @@ def callback():
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
         else:
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
-        result = line_bot_api.push_message(push_message_request=PushMessageRequest(
-            to=event.source.user_id,
-            messages=[TextMessage(
-                text=message,
-                quoteToken=event.message.quote_token)],))
-        print(str(result))
+        line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
 """
 @handler.add(MessageEvent, message=TextMessage)
@@ -93,6 +88,11 @@ def handle_message(event):
     else:
         message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
     line_bot_api.reply_message(reply_quote_token, message)
+            result = line_bot_api.push_message(push_message_request=PushMessageRequest(
+            to=event.source.user_id,
+            messages=[TextMessage(
+                text=message,
+                quoteToken=event.message.quote_token)],))
 """
 
 import os
