@@ -1,6 +1,7 @@
 import openai
 from openai import OpenAI
-from flask import Flask, request, abort
+from flask import Flask, abort
+from fastapi import FastAPI, Request
 from linebot import LineBotApi, WebhookHandler
 from linebot.v3.webhook import WebhookParser
 from linebot.exceptions import InvalidSignatureError
@@ -51,7 +52,7 @@ def gpt_translation(to_language, input_string):
     return return_message
      
 @app.route("/callback", methods=['POST'])
-def callback():
+def callback(request: Request):
     #signature = request.headers['X-Line-Signature']
     #body = request.get_data(as_text=True)
     #app.logger.info("Request body: " + body)
