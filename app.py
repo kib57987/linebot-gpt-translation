@@ -74,12 +74,12 @@ def callback():
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
         else:
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
-        line_bot_api.push_message(push_message_request=PushMessageRequest(
+        result = line_bot_api.push_message(push_message_request=PushMessageRequest(
             to=event.source.user_id,
             messages=[TextMessage(
                 text=message,
                 quoteToken=event.message.quote_token)],))
-         
+         print(str(result))
     return 'OK'
 """
 @handler.add(MessageEvent, message=TextMessage)
