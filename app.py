@@ -109,7 +109,7 @@ def handle_message(event):
 
 import os
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', default=443))
+    port = int(os.environ.get('PORT', default=5000))
     debug = True if os.environ.get('API_ENV', default='develop') == 'develop' else False
     logging.info('Application will start...')
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=debug)
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=debug)
