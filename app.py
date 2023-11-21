@@ -45,10 +45,10 @@ def gpt_translation(to_language, input_string):
         return_message = "Failed to connect to OpenAI API: " + str(e)
         pass
     except openai.RateLimitError as e:
-        return_message = "OpenAI API request exceeded rate limit: " + str(e)
+        return_message = f"OpenAI API request exceeded rate limit: {str(e)}" 
         pass
     except openai.Timeout as e:
-        return_message = "OpenAI API request timed out: " + str(e)
+        return_message = f"OpenAI API request timed out: {str(e)}"
         pass
     except openai.InvalidRequestError as e:
         return_message = "Invalid request to OpenAI API: " + str(e)
@@ -92,7 +92,7 @@ def callback():
         #print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
         print("message: " + str(to_message)) 
-        line_bot_api.push_message(event.source.user_id, [to_message.as_json_dict()])
+        line_bot_api.push_message(event.source.user_id, [to_message])
          
         #line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
