@@ -55,14 +55,14 @@ def gpt_translation(to_language, input_string):
 def callback():
     signature = request.headers['X-Line-Signature']
     body = request.data
-    print(repr(body))
+
     try:
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
-        print("event type = " + type(event))         
+        print("event type = " + type(event).__name__)      
         user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
@@ -76,7 +76,7 @@ def callback():
         else:             
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
 
-        #print("text: " + event.message.text)
+        print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
         #print("message: " + str(message)) 
         #line_bot_api.reply_message(event.message.quote_token, message)     
