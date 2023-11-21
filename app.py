@@ -54,8 +54,7 @@ def gpt_translation(to_language, input_string):
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
-    body = request.data()
-    #app.logger.info("Request body: " + body)
+    body = request.data
     print(str(body))
     try:
         events = parser.parse(body, signature)
