@@ -62,7 +62,7 @@ def callback():
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
-        print(isinstance(event, linebot.models.MessageEvent))
+        print(isinstance(MessageEvent))
         print("event type = " + type(event).__name__)  
         #print("event content: " + str(event))
         if not isinstance(event, MessageEvent):
