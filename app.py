@@ -72,11 +72,11 @@ def callback():
             continue
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
-        else:
-            print("text: " + event.message.text)
-            print("quote_token: " + event.message.quote_token) 
+        else:             
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
-            print("message: " + str(message)) 
+        print("text: " + event.message.text)
+        print("quote_token: " + event.message.quote_token)
+        print("message: " + str(message)) 
         line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
 """
