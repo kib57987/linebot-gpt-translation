@@ -1,5 +1,6 @@
 gunicorn
 line-bot-sdk
 flask
+fastapi
 requests
 openai
