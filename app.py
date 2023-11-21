@@ -65,21 +65,12 @@ def callback():
 
     for event in events:
         print(event)
+        user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
             continue
         if not isinstance(event.message, TextMessageContent):
             continue
-"""
-        await line_bot_api.reply_message(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text='請稍候...查詢中')]
-            )
-        )
-
-        tool_result = open_ai_agent.run(event.message.text)
-"""
-        if event.source.user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
+        if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
         else:
             message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
@@ -87,15 +78,8 @@ def callback():
             to=event.source.user_id,
             messages=[TextMessage(
                 text=message,
-                quoteToken=event.message.quote_token)],
-        ))
-     
-     """
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-     """
+                quoteToken=event.message.quote_token)],))
+         
     return 'OK'
 """
 @handler.add(MessageEvent, message=TextMessage)
