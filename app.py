@@ -60,13 +60,44 @@ def callback():
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         raise HTTPException(status_code=400, detail="Invalid signature")
-    print("events: " + str(events))     
+    #print("events: " + str(events))     
+    
+
+    for event in events:
+        print(event)
+        if not isinstance(event, MessageEvent):
+            continue
+        if not isinstance(event.message, TextMessageContent):
+            continue
+"""
+        await line_bot_api.reply_message(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text='請稍候...查詢中')]
+            )
+        )
+
+        tool_result = open_ai_agent.run(event.message.text)
+"""
+        if event.source.user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
+            message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
+        else:
+            message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
+        await line_bot_api.push_message(push_message_request=PushMessageRequest(
+            to=event.source.user_id,
+            messages=[TextMessage(
+                text=message,
+                quoteToken=event.message.quote_token)],
+        ))
+     
+     """
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
+     """
     return 'OK'
-
+"""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = event.source.user_id
@@ -78,7 +109,7 @@ def handle_message(event):
     else:
         message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
     line_bot_api.reply_message(reply_quote_token, message)
-
+"""
 
 import os
 if __name__ == "__main__":
