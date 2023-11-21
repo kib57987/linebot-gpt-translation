@@ -1,6 +1,6 @@
 import openai
+import uvicorn
 from openai import OpenAI
-from flask import Flask, abort
 from fastapi import FastAPI, Request
 from linebot import LineBotApi, WebhookHandler
 from linebot.v3.webhook import WebhookParser
@@ -8,7 +8,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
 
-app = Flask(__name__)
+app = FastAPI()
 
 line_bot_api = LineBotApi(os.environ['CHANNEL_ACCESS_TOKEN'])
 handler = WebhookHandler(os.environ['CHANNEL_SECRET'])
@@ -109,5 +109,7 @@ def handle_message(event):
 
 import os
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get('PORT', default=8080))
+    debug = True if os.environ.get('API_ENV', default='develop') == 'develop' else False
+    logging.info('Application will start...')
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=debug)
