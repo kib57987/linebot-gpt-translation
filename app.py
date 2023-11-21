@@ -62,7 +62,7 @@ def callback():
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
-        print(isinstance(MessageEvent))
+        print(isinstance(event, MessageEvent))
         print("event type = " + type(event).__name__)  
         #print("event content: " + str(event))
         if not isinstance(event, MessageEvent):
