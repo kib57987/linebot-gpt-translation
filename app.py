@@ -5,7 +5,18 @@ from openai import OpenAI
 from linebot import LineBotApi, WebhookHandler
 from linebot.v3.webhook import WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextSendMessage
+from linebot.v3.webhooks import (
+    MessageEvent,
+    TextMessageContent
+)
+from linebot.v3.messaging import (
+    AsyncApiClient,
+    AsyncMessagingApi,
+    Configuration,
+    ReplyMessageRequest,
+    PushMessageRequest,
+    TextMessage
+)
 import os
 
 app = Flask(__name__)
@@ -76,13 +87,17 @@ def callback():
         print("event type = " + type(event).__name__)      
         user_id = event.source.user_id
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
-            message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
+            message = TextMessage(text = gpt_translation("Chinese", event.message.text), quoteToken=event.message.quote_token)
         else:             
-            message = TextSendMessage(text = gpt_translation("Indonesian", event.message.text))
+            message = TextMessage(text = gpt_translation("Indonesian", event.message.text), quoteToken=event.message.quote_token)
 
-        print("text: " + event.message.text)
+        #print("text: " + event.message.text)
         #print("quote_token: " + event.message.quote_token)
         #print("message: " + str(message)) 
+        line_bot_api.push_message(push_message_request=PushMessageRequest(
+            to=event.source.user_id,
+            messages=message,))
+         
         #line_bot_api.reply_message(event.message.quote_token, message)     
     return 'OK'
 """
