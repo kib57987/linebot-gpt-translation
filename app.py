@@ -62,15 +62,16 @@ def callback():
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
-        print("event type = " + type(event).__name__)      
-        user_id = event.source.user_id
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
             continue
 
         if not isinstance(event.message, TextMessageContent):
+             print("not isinstance TextMessageContent")
             continue
 
+        print("event type = " + type(event).__name__)      
+        user_id = event.source.user_id
         if user_id == 'Ucf4bc1a28d7da04ad9056c5ad854945e':
             message = TextSendMessage(text = gpt_translation("Chinese", event.message.text))
         else:             
