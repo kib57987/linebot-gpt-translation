@@ -5,7 +5,7 @@ from openai import OpenAI
 from linebot import LineBotApi, WebhookHandler
 from linebot.v3.webhook import WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import *
+from linebot.models import MessageEvent, TextMessageContent, TextSendMessage
 import os
 
 app = Flask(__name__)
@@ -62,8 +62,9 @@ def callback():
         raise HTTPException(status_code=400, detail="Invalid signature")
 
     for event in events:
+        print(isinstance(event, linebot.models.MessageEvent))
         print("event type = " + type(event).__name__)  
-        print("event content: " + str(event))
+        #print("event content: " + str(event))
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
             continue
