@@ -43,26 +43,8 @@ def gpt_translation(to_language, input_string):
             messages=message,
             max_tokens=200)
         return_message = response.choices[0].message.content
-    except openai.APIError as e:
-        return_message = "OpenAI API returned an API Error: " + str(e)    
-        pass
-    except openai.APIConnectionError as e:
-        return_message = "Failed to connect to OpenAI API: " + str(e)
-        pass
-    except openai.RateLimitError as e:
-        return_message = f"OpenAI API request exceeded rate limit: {str(e)}" 
-        pass
-    except openai.Timeout as e:
-        return_message = f"OpenAI API request timed out: {str(e)}"
-        pass
-    except openai.InvalidRequestError as e:
-        return_message = "Invalid request to OpenAI API: " + str(e)
-        pass
-    except openai.AuthenticationError as e:
-        return_message = "Authentication error with OpenAI API: " + str(e)
-        pass
-    except openai.ServiceUnavailableError as e:
-        return_message = "OpenAI API service unavailable: " + str(e)
+    except BaseException as e:
+        return_message = f"OpenAI API returned an API Error: {str(e)}" +     
         pass
 
     return return_message
