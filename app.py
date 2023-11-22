@@ -44,7 +44,7 @@ def gpt_translation(to_language, input_string):
             max_tokens=200)
         return_message = response.choices[0].message.content
     except BaseException as e:
-        return_message = f"OpenAI API returned an API Error: {str(e)}" +     
+        return_message = f"OpenAI API returned an API Error: {str(e)}"
         pass
 
     return return_message
