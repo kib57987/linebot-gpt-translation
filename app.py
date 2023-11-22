@@ -41,7 +41,8 @@ def gpt_translation(to_language, input_string):
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=message,
-            max_tokens=200)
+            max_tokens=500,
+            timeout=30)
         return_message = response.choices[0].message.content
     except BaseException as e:
         return_message = f"OpenAI API returned an API Error: {str(e)}"
