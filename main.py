@@ -1,4 +1,5 @@
 import openai
+import sys
 import uvicorn
 from flask import Flask, request, abort
 from openai import OpenAI
@@ -59,9 +60,10 @@ def callback():
         events = parser.parse(body, signature)
     except InvalidSignatureError:
         raise HTTPException(status_code=400, detail="Invalid signature")
-
+   
     for event in events:
         print(str(event))
+        sys.stdout.flush()
         if not isinstance(event, MessageEvent):
             print("not isinstance(event, MessageEvent)")
             continue
